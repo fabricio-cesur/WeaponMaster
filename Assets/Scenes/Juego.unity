@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfed12da87f06704a89e05ebe9a85d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 8
+  velocidad: 10
   fuerzaSalto: 15
   detectorSuelo: {fileID: 512336093}
   radioDeteccion: 0.2
@@ -353,9 +353,12 @@ MonoBehaviour:
   capaPared:
     serializedVersion: 2
     m_Bits: 128
-  fuerzaSaltoParedX: 10
+  fuerzaSaltoParedX: 12
   fuerzaSaltoParedY: 12
   tiempoControlPared: 0.2
+  fuerzaDash: 50
+  tiempoDashMax: 0.2
+  cooldownDashMax: 0.5
 --- !u!1 &190365226
 GameObject:
   m_ObjectHideFlags: 0
