@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
-    public string escenaJuego; //nombre de la escena del Juego
-    public string escenaMenu; //nombre de la escena del menu
+    [Header("Configuración de Escenas")]
+    [SerializeField] private string escenaJuego; //nombre de la escena del Juego
+    [SerializeField] private string escenaMenu; //nombre de la escena del menu
     
     //Singleton, asegurarse que sólo haya 1 GameSceneManager por escena.
     private void Awake()
