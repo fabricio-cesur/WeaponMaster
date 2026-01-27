@@ -204,6 +204,9 @@ git checkout dev                    # Cambiar a la rama dev
 # Estando en la rama dev
 git merge [tu-rama]                 # Hacer un merge de los nuevos commits en la rama dev
 git push                            # Subir el nuevo merge a la dev remota
+# NO te olvides VOLVER a tu rama
+git checkout [tu-rama]              # Regresar a tu rama propia
+git pull origin dev                 # Traer la última versión de dev
 ```
 
 En caso de que haya habido **conflictos** en Unity con el `git pull origin dev`, se deben resolver dichos conflictos y luego seguir los comandos siguientes:
