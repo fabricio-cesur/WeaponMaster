@@ -10,13 +10,15 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private string escenaJuego; //nombre de la escena del Juego
     [SerializeField] private string escenaMenu; //nombre de la escena del menu
     
-    //Singleton, asegurarse que sólo haya 1 GameSceneManager por escena.
+    public static GameSceneManager instance;
+
+    //Singleton, asegurarse que sólo haya 1 GameSceneManager por escena y que persista.
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
-            DontDestoyOnLoad(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
