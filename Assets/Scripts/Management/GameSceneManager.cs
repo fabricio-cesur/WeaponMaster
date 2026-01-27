@@ -8,6 +8,20 @@ public class GameSceneManager : MonoBehaviour
 {
     public string escenaJuego; //nombre de la escena del Juego
     public string escenaMenu; //nombre de la escena del menu
+    
+    //Singleton, asegurarse que sólo haya 1 GameSceneManager por escena.
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestoyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void IrMenu()
     {
