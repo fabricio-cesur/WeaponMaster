@@ -132,8 +132,11 @@ git commit -m "<PREFIJO DE ACCIÓN> (<prefijo de área>): <Título>" -m "<Descri
 git commit -m "FEAT(input): Movimiento básico de personaje" -m "Se creó el script que manejará los inputs del personaje para su movimiento de lado a lado y el salto."
 ```
 
+- Los prefijos siempre se escribirán en **inglés**.
 - Los prefijos de **acción** se escribirán en **mayúsculas**.
 - Los prefijos de **área** se escribirán en **minúsculas**.
+- Los prefijos de **área** no son obligatorios a usar en los commits.
+- Los prefijos de **área** no deben ser sólo los listados en [la lista](#22-áreas), también se pueden crear nuevos, estos eran más por dar ejemplos.
 - La descripción es opcional, sobretodo para explicar lo que no quepa en el título.
 
 ## 3. Flujo de trabajo
@@ -325,4 +328,4 @@ public class PlayerCombat : MonoBehaviour
 ```
 
 > Esta guía sirve como referencia profesional y asegura que el historial de Git sea limpio, legible y coherente con buenas prácticas de desarrollo en Unity 2D.
-> **Última actualización: 24/01/2026**
+> **Última actualización: 27/01/2026**
