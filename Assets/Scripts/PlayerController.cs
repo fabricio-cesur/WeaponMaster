@@ -1,71 +1,92 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class MovimientoCaballero : MonoBehaviour
 {
-    
-    public float velocidadCaminar = 5f;
-    public float velocidadCorrer = 9f;
+    [Header("Movimiento Base")]
+    public float velocidad = 8f;
     public float fuerzaSalto = 12f;
-
-    
-    public Transform comprobadorSuelo; 
-    public float radioDeteccion = 0.1f;
-    public LayerMask capaSuelo; 
-
     private Rigidbody2D rb;
-    private bool estaEnSuelo;
-    private float movimientoHorizontal;
+    private float movimientoX;
 
-    void Awake()
+    [Header("Detección de Suelo")]
+    public Transform detectorSuelo;
+    public float radioDeteccion = 0.2f;
+    public LayerMask capaSuelo;
+    private bool estaEnSuelo;
+
+    [Header("Salto de Pared (Wall Jump)")]
+    public Transform detectorPared;
+    public LayerMask capaPared;
+    public float fuerzaSaltoParedX = 10f;
+    public float fuerzaSaltoParedY = 12f;
+    public float tiempoControlPared = 0.2f; 
+    private bool tocandoPared;
+    private float tiempoUltimoSaltoPared;
+
+    void Start()
     {
-        
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         
-        movimientoHorizontal = Input.GetAxisRaw("Horizontal");
+        estaEnSuelo = Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
+        tocandoPared = Physics2D.OverlapCircle(detectorPared.position, radioDeteccion, capaPared);
 
         
-        float velocidadActual = Input.GetKey(KeyCode.LeftShift) ? velocidadCorrer : velocidadCaminar;
-        
-        //velocidad al Rigidbody
-        rb.linearVelocity = new Vector2(movimientoHorizontal * velocidadActual, rb.linearVelocity.y);
-
-       
-        estaEnSuelo = Physics2D.OverlapCircle(comprobadorSuelo.position, radioDeteccion, capaSuelo);
-
-        // 4. Salto
-        if (Input.GetButtonDown("Jump") && estaEnSuelo)
+        if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
+            movimientoX = Input.GetAxisRaw("Horizontal");
+            rb.linearVelocity = new Vector2(movimientoX * velocidad, rb.linearVelocity.y);
+            GirarSprite();
         }
 
-        // Girar el cubo según la dirección
-        GirarPersonaje(movimientoHorizontal);
+        
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (estaEnSuelo)
+            {
+                Saltar();
+            }
+            else if (tocandoPared)
+            {
+                EjecutarWallJump();
+            }
+        }
     }
 
-    void GirarPersonaje(float direccion)
+    void Saltar()
     {
-        if (direccion > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if (direccion < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
+    }
+
+    void EjecutarWallJump()
+    {
+        tiempoUltimoSaltoPared = Time.time;
+        
+        
+        float direccionSalto = transform.localScale.x > 0 ? -1 : 1;
+        
+        
+        rb.linearVelocity = new Vector2(direccionSalto * fuerzaSaltoParedX, fuerzaSaltoParedY);
+
+        
+        Vector3 escala = transform.localScale;
+        escala.x *= -1;
+        transform.localScale = escala;
+    }
+
+    void GirarSprite()
+    {
+        if (movimientoX > 0) transform.localScale = new Vector3(1, 1, 1);
+        else if (movimientoX < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
 
     
-  private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        if (comprobadorSuelo != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(comprobadorSuelo.position, 0.2f);
-        }
+        if (detectorSuelo) Gizmos.color = Color.red; Gizmos.DrawWireSphere(detectorSuelo.position, radioDeteccion);
+        if (detectorPared) Gizmos.color = Color.blue; Gizmos.DrawWireSphere(detectorPared.position, radioDeteccion);
     }
-    }
-    
+}
