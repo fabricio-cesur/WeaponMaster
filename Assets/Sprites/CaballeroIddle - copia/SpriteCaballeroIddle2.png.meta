@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a4fc777a2e79ec04180fe9d22c945d66
+guid: 4807298591dc9274fa66988811897616
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1791999895836961323
-    second: castillo3_0
+      213: 5146606570571330441
+    second: SpriteCaballeroIddle2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: castillo3_0
+      name: SpriteCaballeroIddle2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 490
-        height: 1024
+        width: 19
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5d5d913d6998127e0800000000000000
-      internalID: -1791999895836961323
+      spriteID: 9837895786b6c6740800000000000000
+      internalID: 5146606570571330441
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      castillo3_0: -1791999895836961323
+      SpriteCaballeroIddle2_0: 5146606570571330441
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
