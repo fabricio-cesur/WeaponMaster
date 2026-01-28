@@ -33,10 +33,17 @@ public class MovimientoCaballero : MonoBehaviour
     private bool estaHaciendoDash;
     private float gravedadOriginal;
 
+    private GameSceneManager gsm;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gravedadOriginal = rb.gravityScale;
+
+        if (gsm == null)
+        {
+            gsm = FindFirstObjectByType<GameSceneManager>();
+        }
     }
 
     void Update()
@@ -91,6 +98,11 @@ public class MovimientoCaballero : MonoBehaviour
             {
                 EjecutarWallJump();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gsm.IrMenu();
         }
     } 
 
