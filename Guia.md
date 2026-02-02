@@ -15,8 +15,8 @@
   - [3.1 Configuración inicial](#31-configuración-inicial)
   - [3.2 flujo común al hacer cambios](#32-flujo-común-al-hacer-cambios)
     - [3.2.1 Antes de cualquier cambio](#321-antes-de-cualquier-cambio)
-    - [3.2.2 Después de haber hecho cambios](#322-después-de-haber-hecho-cambios)
-    - [3.2.3 Subir los commits a la rama dev](#323-subir-los-commits-a-la-rama-dev)
+    - [3.2.2 Guardar tus cambios](#322-guardar-tus-cambios)
+    - [3.2.3 Subir los cambios a la rama dev](#323-subir-los-cambios-a-la-rama-dev)
   - [3.3 Corrección de commits (LOCAL)](#33-corrección-de-commits-local)
     - [3.3.1 Quitar un archivo del último commit](#331-quitar-un-archivo-del-último-commit)
     - [3.3.2 Agregar un archivo del último commit](#332-agregar-un-archivo-del-último-commit)
@@ -126,14 +126,19 @@ A qué afectó el commit, explican el **DÓNDE** se hizo
 
 Al utilizar los prefijos en los commits es necesario ser constantes para mantener la legibilidad y el orden del proyecto.
 
+**Ejemplo:**
+
 ```bash
 git commit -m "<PREFIJO DE ACCIÓN> (<prefijo de área>): <Título>" -m "<Descripción>"
 
 git commit -m "FEAT(input): Movimiento básico de personaje" -m "Se creó el script que manejará los inputs del personaje para su movimiento de lado a lado y el salto."
 ```
 
+- Los prefijos siempre se escribirán en **inglés**.
 - Los prefijos de **acción** se escribirán en **mayúsculas**.
 - Los prefijos de **área** se escribirán en **minúsculas**.
+- Los prefijos de **área** no son obligatorios a usar en los commits.
+- Los prefijos de **área** no deben ser sólo los listados en [la lista](#22-áreas), también se pueden crear nuevos, estos eran más por dar ejemplos.
 - La descripción es opcional, sobretodo para explicar lo que no quepa en el título.
 
 ## 3. Flujo de trabajo
@@ -165,17 +170,17 @@ git config pull.rebase true         # Utilizar rebase en el pull envés de merge
 
 #### 3.2.1 Antes de cualquier cambio
 
-A diario antes de trabajar y hacer commits, sincronizar con la rama dev para estar lo más sincronizados posible.
+A diario antes de trabajar y hacer commits, sincronizar con la rama dev para estar lo más sincronizados posible. Hacer esto antes de cualquier cambio o empezar a trabajar para así estar igual que la rama dev.
 
 ```bash
-git checkout [tu-rama]              # Asegurarse estar en tu rama propia
-git pull                            # Sincronizarte con tu propia rama remota
+git checkout <tu-rama>              # Asegurarse estar en tu rama propia
+git pull origin <tu-rama>                        # Sincronizarte con tu propia rama remota
 git pull origin dev                 # Sincronizarte con los cambios de la dev remota
 
 # Hacer cambios en Unity o el proyecto
 ```
 
-#### 3.2.2 Después de haber hecho cambios
+#### 3.2.2 Guardar tus cambios
 
 Después de tener algunos cambios hechos con cambios medianamente estables o bien dirigidos, se guardará en un commit local con un mensaje claro y descripción si es necesario.
 
@@ -183,24 +188,25 @@ Después de tener algunos cambios hechos con cambios medianamente estables o bie
 # Estando en tu rama propia.
 git add .                           # Añadir todos los cambios
 git commit -m "PREFIJO: Mensaje"    # Escribir mensaje con prefijo
-# Opcional para añadir una descripción: 
-# git commit -m "PREFIJO: Titulo" -m "Descripción más larga y detallada"
-git push                            # Subir cambios al remoto
+git push origin <tu-rama>           # Subir cambios al remoto
 ```
 
-#### 3.2.3 Subir los commits a la rama dev
+#### 3.2.3 Subir los cambios a la rama dev
 
 Después de tener algunos commits hechos con alguna feature o añadiendo nuevas cosas, se subirán al remoto de la rama propia para luego mergearla a la rama dev.
 
 ```bash
-# Estando en tu rama propia
-git push                            # Asegurarse tener todos los commits subidos
+# Estando en tu (rama propia)
 git pull origin dev                 # Estar sincronizados con la dev
 # +----Puede haber conflictos, resolverlos y seguir como se indica en el bloque de abajo----+
+git push origin <tu-rama>           # Subir la resolución de conflictos
 git checkout dev                    # Cambiar a la rama dev                                
-# Estando en la rama dev
-git merge [tu-rama]                 # Hacer un merge de los nuevos commits en la rama dev
-git push                            # Subir el nuevo merge a la dev remota
+# Estando en la rama (dev)
+git pull origin dev                 # Traer la dev actualizada del repositorio
+git merge <tu-rama>                 # Hacer un merge de los nuevos commits en la rama dev
+git push origin dev                 # Subir el nuevo merge a la dev remota
+# NO te olvides VOLVER a tu rama
+git checkout <tu-rama>              # Regresar a tu rama propia
 ```
 
 En caso de que haya habido **conflictos** en Unity con el `git pull origin dev`, se deben resolver dichos conflictos y luego seguir los comandos siguientes:
@@ -208,7 +214,7 @@ En caso de que haya habido **conflictos** en Unity con el `git pull origin dev`,
 ```bash
 # Después de haber resuelto los conflictos
 git add .                           # Añadir los archivos con conflictos resueltos
-git rebase --continue
+git commit -m "MERGE: Conflicto x resuelto"
 # +---Continuar con el flujo normal con checkout merge como se indica en el bloque de arriba---+
 ```
 
@@ -325,4 +331,4 @@ public class PlayerCombat : MonoBehaviour
 ```
 
 > Esta guía sirve como referencia profesional y asegura que el historial de Git sea limpio, legible y coherente con buenas prácticas de desarrollo en Unity 2D.
-> **Última actualización: 24/01/2026**
+> **Última actualización: 28/01/2026**
