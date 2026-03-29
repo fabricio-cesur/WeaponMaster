@@ -12,6 +12,10 @@ public class MovimientoCaballero : MonoBehaviour
     public float tiempoCoyoteMax = 0.15f; 
     private float coyoteTimer;
 
+    [Header("Jump Buffer")] // <-- NUEVO: Sección para el Buffer
+    public float tiempoBufferMax = 0.1f;
+    private float bufferTimer;
+
     [Header("Detección de Suelo")]
     public Transform detectorSuelo;
     public float radioDeteccion = 0.2f;
@@ -83,7 +87,7 @@ public class MovimientoCaballero : MonoBehaviour
         estaEnSuelo = Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
         tocandoPared = Physics2D.OverlapCircle(detectorPared.position, radioDeteccion, capaPared);
 
-        // Lógica coyote time
+        // Lógica de gestión del temporizador Coyote
         if (estaEnSuelo)
         {
             coyoteTimer = tiempoCoyoteMax;
@@ -93,6 +97,17 @@ public class MovimientoCaballero : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
         }
 
+        // --- NUEVA LÓGICA: Gestión del Buffer de Salto ---
+        if (Input.GetButtonDown("Jump"))
+        {
+            bufferTimer = tiempoBufferMax; // "Guardamos" la intención de saltar
+        }
+        else
+        {
+            bufferTimer -= Time.deltaTime;
+        }
+        // ------------------------------------------------
+
         if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared)
         {
             movimientoX = Input.GetAxisRaw("Horizontal");
@@ -100,14 +115,14 @@ public class MovimientoCaballero : MonoBehaviour
             GirarSprite();
         }
 
-        if (Input.GetButtonDown("Jump"))
+        // Lógica de salto mejorada con Coyote y Buffer
+        if (bufferTimer > 0f) // Si el jugador ha pulsado saltar hace muy poco...
         {
-            
-            if (coyoteTimer > 0f)
+            if (coyoteTimer > 0f) // ...y todavía tiene tiempo de Coyote (está en suelo o casi)
             {
                 Saltar();
             }
-            else if (tocandoPared)
+            else if (tocandoPared) // O si está tocando pared
             {
                 EjecutarWallJump();
             }
@@ -122,7 +137,8 @@ public class MovimientoCaballero : MonoBehaviour
     void Saltar()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
-        coyoteTimer = 0f; // Evita saltos múltiples en el aire
+        coyoteTimer = 0f; 
+        bufferTimer = 0f; // Vaciamos el buffer tras saltar para no repetir el salto
     }
 
     void EjecutarWallJump()
@@ -134,6 +150,8 @@ public class MovimientoCaballero : MonoBehaviour
         Vector3 escala = transform.localScale;
         escala.x *= -1;
         transform.localScale = escala;
+        
+        bufferTimer = 0f; // Vaciamos el buffer tras el wall jump
     }
 
     void GirarSprite()
