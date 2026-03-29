@@ -8,6 +8,10 @@ public class MovimientoCaballero : MonoBehaviour
     private Rigidbody2D rb;
     private float movimientoX;
 
+    [Header("Coyote Time")]
+    public float tiempoCoyoteMax = 0.15f; 
+    private float coyoteTimer;
+
     [Header("Detección de Suelo")]
     public Transform detectorSuelo;
     public float radioDeteccion = 0.2f;
@@ -48,7 +52,6 @@ public class MovimientoCaballero : MonoBehaviour
 
     void Update()
     {
-        
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !estaHaciendoDash)
@@ -76,10 +79,19 @@ public class MovimientoCaballero : MonoBehaviour
             }
             return; 
         }
-       
 
         estaEnSuelo = Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
         tocandoPared = Physics2D.OverlapCircle(detectorPared.position, radioDeteccion, capaPared);
+
+        // Lógica coyote time
+        if (estaEnSuelo)
+        {
+            coyoteTimer = tiempoCoyoteMax;
+        }
+        else
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
 
         if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared)
         {
@@ -90,7 +102,8 @@ public class MovimientoCaballero : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (estaEnSuelo)
+            
+            if (coyoteTimer > 0f)
             {
                 Saltar();
             }
@@ -109,6 +122,7 @@ public class MovimientoCaballero : MonoBehaviour
     void Saltar()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
+        coyoteTimer = 0f; // Evita saltos múltiples en el aire
     }
 
     void EjecutarWallJump()
