@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("Salud")]
     public float saludMaxima = 100f;
@@ -172,6 +172,12 @@ public class PlayerController : MonoBehaviour
         saludActual += cantidad;
         if (cantidad < 0) timerInvencibilidad = tiempoInvencibilidad;
         if (saludActual <= 0) UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void RecibirDano(float cantidadDano)
+    {
+        saludActual -= cantidadDano;
+        Debug.Log($"PLAYER: Vida restante de {saludActual} puntos");
     }
 
     private void OnDrawGizmosSelected()
