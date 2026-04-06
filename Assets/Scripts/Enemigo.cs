@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Enemigo : MonoBehaviour
+public class EnemigoIA : MonoBehaviour
 {
-    [Header("Sistema de Salud")]
+    [Header("Salud")]
     public float vidaMaxima = 30f;
-    private float vidaActual;
+    public float vidaActual;
 
-    [Header("Movimiento de Patrulla")]
+    [Header("Patrulla")]
     public float velocidadPatrulla = 3f;
     public float rangoPatrulla = 5f; 
     private float xMinima;
@@ -75,9 +75,9 @@ public class Enemigo : MonoBehaviour
         transform.localScale = new Vector3(escalaOriginal.x * dirX, escalaOriginal.y, escalaOriginal.z);
     }
 
-    public void RecibirDaño(float cantidad)
+    public void ModificarVida(float cantidad)
     {
-        vidaActual -= cantidad;
+        vidaActual += cantidad;
         if (vidaActual <= 0) Morir();
     }
 
