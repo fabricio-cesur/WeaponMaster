@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2546103541935660506}
   - component: {fileID: 7538578865858598947}
   - component: {fileID: 561812338062102362}
+  - component: {fileID: 2251229537388852595}
   m_Layer: 0
   m_Name: Pico
   m_TagString: Untagged
@@ -139,6 +140,19 @@ PolygonCollider2D:
       - {x: -0.3956666, y: -0.08746569}
       - {x: 0.39416122, y: -0.089124605}
   m_UseDelaunayMesh: 0
+--- !u!114 &2251229537388852595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794087033562276917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc35b90a656939b4a817efcf67cba0fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danoPincho: 10
 --- !u!1 &5532159610299381956
 GameObject:
   m_ObjectHideFlags: 0

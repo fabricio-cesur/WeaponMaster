@@ -11,6 +11,7 @@ public class Pinchos : MonoBehaviour
             IDamageable damageable = otro.GetComponent<IDamageable>();
             if (damageable != null)
             {
+                Debug.Log($"PINCHOS: Daño a jugador de {danoPincho} puntos.");
                 damageable.RecibirDano(danoPincho);
             }
         }
