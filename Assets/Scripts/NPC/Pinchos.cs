@@ -8,8 +8,6 @@ public class Pinchos : MonoBehaviour
     {
         if (otro.gameObject.CompareTag("Player"))
         {
-
-            Debug.Log($"PINCHOS: Toqué al jugador.");
             IDamageable damageable = otro.gameObject.GetComponent<IDamageable>();
             if (damageable != null)
             {
