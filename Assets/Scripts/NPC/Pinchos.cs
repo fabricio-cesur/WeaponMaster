@@ -4,11 +4,13 @@ public class Pinchos : MonoBehaviour
 {
     [SerializeField] private float danoPincho = 10;
 
-    private void OnTriggerEnter2D(Collider2D otro)
+    private void OnCollisionEnter2D(Collision2D otro)
     {
-        if (otro.CompareTag("Player"))
+        if (otro.gameObject.CompareTag("Player"))
         {
-            IDamageable damageable = otro.GetComponent<IDamageable>();
+
+            Debug.Log($"PINCHOS: Toqué al jugador.");
+            IDamageable damageable = otro.gameObject.GetComponent<IDamageable>();
             if (damageable != null)
             {
                 Debug.Log($"PINCHOS: Daño a jugador de {danoPincho} puntos.");
