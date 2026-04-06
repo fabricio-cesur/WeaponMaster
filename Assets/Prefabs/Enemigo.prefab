@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5052642914607588578}
   - component: {fileID: 6363844014996212134}
   - component: {fileID: 3263936101981460136}
+  - component: {fileID: 986231055240650439}
   m_Layer: 0
   m_Name: Cuerpo
   m_TagString: Untagged
@@ -114,7 +115,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!70 &3263936101981460136
 CapsuleCollider2D:
@@ -153,6 +154,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.000000059604645}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &986231055240650439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656394338770548997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89234f32c03a21b48b019d0c8f0207c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaMaxima: 80
+  vidaActual: 0
+  velocidadPatrulla: 2
+  rangoPatrulla: 7
+  velocidadPersecucion: 4
+  distanciaDeteccion: 7
+  distanciaAbandono: 8
 --- !u!1 &9022657253662521468
 GameObject:
   m_ObjectHideFlags: 0
