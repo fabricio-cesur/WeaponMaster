@@ -1,124 +1,99 @@
 using UnityEngine;
 
-
 public class Enemigo : MonoBehaviour
 {
-    [Header("Configuración de Vida")]
+    [Header("Sistema de Salud")]
     public float vidaMaxima = 30f;
     private float vidaActual;
 
-    [Header("Movimiento y Patrulla")]
-    public float velocidadPatrulla = 2f;
-    public float rangoPatrulla = 3f; 
-    private Vector2 puntoInicial;
-    private int direccion = 1;
+    [Header("Movimiento de Patrulla")]
+    public float velocidadPatrulla = 3f;
+    public float rangoPatrulla = 5f; 
+    private float xMinima;
+    private float xMaxima;
+    private int direccionActual = 1;
+    private Vector3 escalaOriginal;
 
-    [Header("Detección del Jugador")]
-    public float velocidadPersecucion = 4f;
-    public float distanciaDeteccion = 5f;  // Rango para empezar a seguir
-    public float distanciaAbandono = 8f;   // Rango para dejar de seguir
-    private Transform jugador;
-    private bool persiguiendo = false;
+    [Header("Persecución")]
+    public float velocidadPersecucion = 5f;
+    public float distanciaDeteccion = 6f;  
+    public float distanciaAbandono = 10f;   
+    private Transform transformJugador;
+    private bool estaPersiguiendo = false;
 
     private Rigidbody2D rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        puntoInicial = transform.position;
+        escalaOriginal = transform.localScale;
+        xMinima = transform.position.x - rangoPatrulla;
+        xMaxima = transform.position.x + rangoPatrulla;
         vidaActual = vidaMaxima;
-
-        // Buscamos al jugador por el tag "Player"
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null) jugador = playerObj.transform;
+        BuscarJugador();
     }
 
-    void Update()
+    void BuscarJugador()
     {
-        if (jugador == null) return;
+        GameObject jugadorObjetivo = GameObject.FindGameObjectWithTag("Player");
+        if (jugadorObjetivo != null) transformJugador = jugadorObjetivo.transform;
+    }
 
-        float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
+    void FixedUpdate() 
+    {
+        if (rb == null) return;
+        if (transformJugador == null) BuscarJugador();
 
-        // Lógica de estados: Persecución o Patrulla
-        if (distanciaAlJugador < distanciaDeteccion)
+        if (transformJugador != null)
         {
-            persiguiendo = true;
-        }
-        else if (distanciaAlJugador > distanciaAbandono)
-        {
-            persiguiendo = false;
+            float distancia = Vector2.Distance(transform.position, transformJugador.position);
+            if (distancia < distanciaDeteccion) estaPersiguiendo = true;
+            else if (distancia > distanciaAbandono) estaPersiguiendo = false;
         }
 
-        if (persiguiendo)
-        {
-            PerseguirJugador();
-        }
-        else
-        {
-            Patrullar();
-        }
+        if (estaPersiguiendo && transformJugador != null) Perseguir();
+        else Patrullar();
     }
 
     void Patrullar()
     {
-        // Calculamos los límites de la patrulla
-        float limiteDerecha = puntoInicial.x + rangoPatrulla;
-        float limiteIzquierda = puntoInicial.x - rangoPatrulla;
-
-        if (transform.position.x >= limiteDerecha) direccion = -1;
-        if (transform.position.x <= limiteIzquierda) direccion = 1;
-
-        rb.linearVelocity = new Vector2(direccion * velocidadPatrulla, rb.linearVelocity.y);
-        GirarSprite(direccion);
+        if (transform.position.x >= xMaxima) direccionActual = -1;
+        if (transform.position.x <= xMinima) direccionActual = 1;
+        rb.linearVelocity = new Vector2(direccionActual * velocidadPatrulla, rb.linearVelocity.y);
+        GirarSprite(direccionActual);
     }
 
-    void PerseguirJugador()
+    void Perseguir()
     {
-        float dirX = jugador.position.x > transform.position.x ? 1 : -1;
-        rb.linearVelocity = new Vector2(dirX * velocidadPersecucion, rb.linearVelocity.y);
-        GirarSprite(dirX);
+        float direccionHaciaJugador = transformJugador.position.x > transform.position.x ? 1 : -1;
+        rb.linearVelocity = new Vector2(direccionHaciaJugador * velocidadPersecucion, rb.linearVelocity.y);
+        GirarSprite(direccionHaciaJugador);
     }
 
-    void GirarSprite(float dir)
+    void GirarSprite(float dirX)
     {
-        if (dir > 0) transform.localScale = new Vector3(1, 1, 1);
-        else if (dir < 0) transform.localScale = new Vector3(-1, 1, 1);
+        transform.localScale = new Vector3(escalaOriginal.x * dirX, escalaOriginal.y, escalaOriginal.z);
     }
 
-    // --- SISTEMA DE VIDA (Llamado por MovimientoCaballero) ---
     public void RecibirDaño(float cantidad)
     {
         vidaActual -= cantidad;
-        Debug.Log(gameObject.name + " herido. Vida restante: " + vidaActual);
-
-        if (vidaActual <= 0)
-        {
-            Morir();
-        }
+        if (vidaActual <= 0) Morir();
     }
 
     void Morir()
     {
-        Debug.Log(gameObject.name + " ha muerto.");
-        
-        Destroy(gameObject);
+        if (transform.parent != null) Destroy(transform.parent.gameObject);
+        else Destroy(gameObject);
     }
 
-    
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        
         Gizmos.color = Color.green;
-        Vector3 inicio = new Vector3(puntoInicial.x - rangoPatrulla, transform.position.y, 0);
-        Vector3 fin = new Vector3(puntoInicial.x + rangoPatrulla, transform.position.y, 0);
-        Gizmos.DrawLine(inicio, fin);
-
-        // Rango de detección 
+        float visualMin = Application.isPlaying ? xMinima : transform.position.x - rangoPatrulla;
+        float visualMax = Application.isPlaying ? xMaxima : transform.position.x + rangoPatrulla;
+        Gizmos.DrawLine(new Vector2(visualMin, transform.position.y), new Vector2(visualMax, transform.position.y));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, distanciaDeteccion);
-
-        // Rango de abandono 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, distanciaAbandono);
     }
 }
