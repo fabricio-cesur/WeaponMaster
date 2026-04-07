@@ -6,14 +6,23 @@ public class Pinchos : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D otro)
     {
-        if (otro.gameObject.CompareTag("Player"))
+        GameObject otroObjeto = otro.gameObject;
+        string tag = otroObjeto.tag;
+        
+        if (otroObjeto.GetComponent<IDamageable>() != null)
         {
-            IDamageable damageable = otro.gameObject.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                Debug.Log($"PINCHOS: Daño a jugador de {danoPincho} puntos.");
-                damageable.RecibirDano(danoPincho);
-            }
+            IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
+            Debug.Log($"PINCHOS: Daño a {otro.gameObject.name} de {danoPincho} puntos.");
+            damageable.RecibirDano(danoPincho);
         }
+        // if (tag == "Player" || tag == "Enemy")
+        // {
+        //     IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
+        //     if (damageable != null)
+        //     {
+        //         Debug.Log($"PINCHOS: Daño a {otro.gameObject.name} de {danoPincho} puntos.");
+        //         damageable.RecibirDano(danoPincho);
+        //     }
+        // }
     }
 }

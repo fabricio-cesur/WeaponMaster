@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemigoIA : MonoBehaviour
+public class EnemigoIA : MonoBehaviour, IDamageable
 {
     [Header("Salud")]
     public float vidaMaxima = 30f;
@@ -85,6 +85,16 @@ public class EnemigoIA : MonoBehaviour
     {
         if (transform.parent != null) Destroy(transform.parent.gameObject);
         else Destroy(gameObject);
+    }
+
+    public void RecibirDano(float cantidadDano)
+    {
+        vidaActual -= cantidadDano;
+        Debug.Log($"ENEMIGO: Vida restante de {vidaActual} puntos");
+        if (vidaActual <= 0)
+        {
+            Morir();
+        }
     }
 
     private void OnDrawGizmos()
