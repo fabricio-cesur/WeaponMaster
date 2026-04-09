@@ -165,37 +165,11 @@ Transform:
   - {fileID: 255677437}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &26689431
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 26689432}
-  m_Layer: 0
-  m_Name: PuntoDerecha
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &26689432
+--- !u!4 &26689432 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8411285757869184184, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+  m_PrefabInstance: {fileID: 4415662347432900313}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26689431}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 33886517}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &33886517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 179052244974930297, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
@@ -604,37 +578,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &353704825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 353704826}
-  m_Layer: 0
-  m_Name: PuntoAbajo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &353704826
+--- !u!4 &353704826 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6551613643097610738, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+  m_PrefabInstance: {fileID: 4415662347432900313}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353704825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 33886517}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &491235351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1130,37 +1078,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2205286279854803194, guid: bbbec8d32c5a32f46b368c06ffe140dd, type: 3}
   m_PrefabInstance: {fileID: 7618675845264473130}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1010895297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1010895298}
-  m_Layer: 0
-  m_Name: PuntoIzquierda
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1010895298
+--- !u!4 &1010895298 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8447104821642712302, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+  m_PrefabInstance: {fileID: 4415662347432900313}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1010895297}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 33886517}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1035571879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1647,37 +1569,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1717790206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1717790207}
-  m_Layer: 0
-  m_Name: PuntoArriba
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1717790207
+--- !u!4 &1717790207 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7384447790249405135, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+  m_PrefabInstance: {fileID: 4415662347432900313}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717790206}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 33886517}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1772357941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,10 +2029,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 654595516819464548, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4174963815271541961, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
       propertyPath: puntoAbajo
       value: 
@@ -2159,19 +2051,7 @@ PrefabInstance:
       objectReference: {fileID: 1010895298}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 179052244974930297, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1717790207}
-    - targetCorrespondingSourceObject: {fileID: 179052244974930297, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1010895298}
-    - targetCorrespondingSourceObject: {fileID: 179052244974930297, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 353704826}
-    - targetCorrespondingSourceObject: {fileID: 179052244974930297, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 26689432}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
 --- !u!1001 &7618675845264473130
