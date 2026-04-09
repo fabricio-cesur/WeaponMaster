@@ -6,6 +6,9 @@ public class EnemigoIA : MonoBehaviour, IDamageable
     public float vidaMaxima = 30f;
     public float vidaActual;
 
+    [Header("Ataque")]
+    public float danoEnemigo = 10f;
+
     [Header("Patrulla")]
     public float velocidadPatrulla = 3f;
     public float rangoPatrulla = 5f; 
@@ -94,6 +97,20 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         if (vidaActual <= 0)
         {
             Morir();
+        }
+    }
+
+    //Hacer daño a player
+    private void OnCollisionEnter2D(Collision2D otro)
+    {
+        GameObject otroObjeto = otro.gameObject;
+        string tag = otroObjeto.tag;
+        
+        if (otroObjeto.GetComponent<IDamageable>() != null)
+        {
+            IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
+            Debug.Log($"ENEMIGO: Daño a {otro.gameObject.name} de {danoEnemigo} puntos.");
+            damageable.RecibirDano(danoEnemigo);
         }
     }
 
