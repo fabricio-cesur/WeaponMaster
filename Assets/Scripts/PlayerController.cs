@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Instancia el prefab de ataque en la posicion del punto indicado y gestiona su destruccion.
+    /// Instancia el prefab de ataque en la posicion y rotacion del punto indicado.
     /// </summary>
     void Atacar(string direccion, Transform punto)
     {
@@ -132,16 +132,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         cooldownAtaqueTimer = tiempoEntreAtaques;
 
-        // Instanciar el trigger de ataque
-        GameObject ataqueTemporal = Instantiate(prefabAtaque, punto.position, Quaternion.identity);
+        // CAMBIO AQUÍ: Usamos 'punto.rotation' en lugar de 'Quaternion.identity'
+        GameObject ataqueTemporal = Instantiate(prefabAtaque, punto.position, punto.rotation, punto);
         
-        // Opcional: Ajustar escala segun el tamaño definido en el inspector
         ataqueTemporal.transform.localScale = new Vector3(tamañoAtaque, tamañoAtaque, 1);
 
-        // Destruir el objeto tras un instante
         Destroy(ataqueTemporal, tiempoVidaAtaque);
 
-        // Tu logica actual de deteccion por OverlapBox (se mantiene intacta)
+        // Detección física (se mantiene para lógica interna)
         Physics2D.OverlapBoxAll(punto.position, new Vector2(tamañoAtaque, tamañoAtaque), 0, capaEnemigos);
     }
     
