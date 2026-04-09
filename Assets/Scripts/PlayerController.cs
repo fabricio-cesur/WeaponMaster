@@ -80,10 +80,17 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (cooldownAtaqueTimer <= 0)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow)) Atacar("Arriba", puntoArriba);
-
             else if (Input.GetKeyDown(KeyCode.DownArrow)) Atacar("Abajo", puntoAbajo);
-            else if (Input.GetKeyDown(KeyCode.RightArrow)) Atacar("Derecha", puntoDerecha);
-            else if (Input.GetKeyDown(KeyCode.LeftArrow)) Atacar("Izquierda", puntoIzquierda);
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) 
+            {
+                transform.localScale = new Vector3(1, 1, 1); // Obligamos a mirar a la derecha
+                Atacar("Derecha", puntoDerecha); 
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+            {
+                transform.localScale = new Vector3(-1, 1, 1); // Obligamos a mirar a la izquierda
+                Atacar("Izquierda", puntoDerecha); // Usamos puntoDerecha porque al girar, es el que queda al frente
+            }
         }
 
         estaEnSuelo = Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
@@ -180,6 +187,12 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void GirarSprite()
     {
+        // Calculamos si el ataque físico (el prefab) sigue existiendo
+        bool ataqueActivo = cooldownAtaqueTimer > (tiempoEntreAtaques - tiempoVidaAtaque);
+        
+        // Si estamos atacando, impedimos que el movimiento gire al personaje
+        if (ataqueActivo) return;
+
         if (movimientoX > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (movimientoX < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
