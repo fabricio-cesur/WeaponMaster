@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private float bufferTimer;
 
     [Header("Ataque")]
+    [SerializeField] private GameObject prefabAtaque;
+    [SerializeField] private float tiempoVidaAtaque = 0.1f;
     public float tiempoEntreAtaques = 0.3f;
     private float cooldownAtaqueTimer;
     public float dañoAtaque = 10f;
@@ -77,6 +80,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (cooldownAtaqueTimer <= 0)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow)) Atacar("Arriba", puntoArriba);
+
             else if (Input.GetKeyDown(KeyCode.DownArrow)) Atacar("Abajo", puntoAbajo);
             else if (Input.GetKeyDown(KeyCode.RightArrow)) Atacar("Derecha", puntoDerecha);
             else if (Input.GetKeyDown(KeyCode.LeftArrow)) Atacar("Izquierda", puntoIzquierda);
@@ -118,13 +122,29 @@ public class PlayerController : MonoBehaviour, IDamageable
         bufferTimer = 0f; 
     }
 
+    /// <summary>
+    /// Instancia el prefab de ataque en la posicion del punto indicado y gestiona su destruccion.
+    /// </summary>
     void Atacar(string direccion, Transform punto)
     {
-        if (punto == null) return; 
+        Debug.Log($"PLAYER: Atacando en dirección {direccion}");
+        if (punto == null || prefabAtaque == null) return; 
+
         cooldownAtaqueTimer = tiempoEntreAtaques;
+
+        // Instanciar el trigger de ataque
+        GameObject ataqueTemporal = Instantiate(prefabAtaque, punto.position, Quaternion.identity);
+        
+        // Opcional: Ajustar escala segun el tamaño definido en el inspector
+        ataqueTemporal.transform.localScale = new Vector3(tamañoAtaque, tamañoAtaque, 1);
+
+        // Destruir el objeto tras un instante
+        Destroy(ataqueTemporal, tiempoVidaAtaque);
+
+        // Tu logica actual de deteccion por OverlapBox (se mantiene intacta)
         Physics2D.OverlapBoxAll(punto.position, new Vector2(tamañoAtaque, tamañoAtaque), 0, capaEnemigos);
     }
-
+    
     void EjecutarDash()
     {
         estaHaciendoDash = true;
