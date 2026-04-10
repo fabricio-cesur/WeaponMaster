@@ -110,7 +110,7 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         {
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"ENEMIGO: Daño a {otro.gameObject.name} de {danoEnemigo} puntos.");
-            damageable.RecibirDano(danoEnemigo, transformJugador.position, 20f);
+            damageable.RecibirDano(danoEnemigo, transform.position, 20f);
         }
     }
 
