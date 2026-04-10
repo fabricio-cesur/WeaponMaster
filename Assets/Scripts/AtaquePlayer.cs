@@ -3,6 +3,17 @@ using UnityEngine;
 public class AtaquePlayer : MonoBehaviour
 {
     [SerializeField] private float danoAtaquePlayer = 30;
+    private Transform transformJugador;
+
+    void Start()
+    {
+        GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+
+        if (jugador != null)
+        {
+            transformJugador = jugador.transform;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D otro)
     {
@@ -13,7 +24,7 @@ public class AtaquePlayer : MonoBehaviour
         {
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"PLAYER: Daño a {otro.gameObject.name} ({tag}) de {danoAtaquePlayer} puntos.");
-            damageable.RecibirDano(danoAtaquePlayer);
+            damageable.RecibirDano(danoAtaquePlayer, transformJugador.position, 10f);
         }
     }
 }

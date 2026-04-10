@@ -90,7 +90,7 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         else Destroy(gameObject);
     }
 
-    public void RecibirDano(float cantidadDano)
+    public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 1f)
     {
         vidaActual -= cantidadDano;
         Debug.Log($"ENEMIGO: Vida restante de {vidaActual} puntos");
@@ -110,7 +110,7 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         {
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"ENEMIGO: Daño a {otro.gameObject.name} de {danoEnemigo} puntos.");
-            damageable.RecibirDano(danoEnemigo);
+            damageable.RecibirDano(danoEnemigo, transformJugador.position, 20f);
         }
     }
 

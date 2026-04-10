@@ -13,7 +13,7 @@ public class Pinchos : MonoBehaviour
         {
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"PINCHOS: Daño a {otro.gameObject.name} de {danoPincho} puntos.");
-            damageable.RecibirDano(danoPincho);
+            damageable.RecibirDano(danoPincho, transform.position, 15f);
         }
     }
 }

@@ -53,6 +53,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     private bool estaHaciendoDash;
     private float gravedadOriginal;
 
+    [Header("Knockback")]
+    public float tiempoKnockback = 0.2f;
+    private float knockbackTimer;
+
     private GameSceneManager gsm;
 
     void Start()
@@ -68,6 +72,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
         if (cooldownAtaqueTimer > 0) cooldownAtaqueTimer -= Time.deltaTime;
         if (timerInvencibilidad > 0) timerInvencibilidad -= Time.deltaTime;
+        if (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.deltaTime;
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !estaHaciendoDash) EjecutarDash();
 
@@ -204,17 +213,34 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (saludActual <= 0) UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    public void RecibirDano(float cantidadDano)
+    public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 10f)
     {
-        if (saludActual <= 0)
-        {
-            Debug.Log($"PLAYER: Sin vida, debería MORIR");
-        }
-        else
-        {
+        // if (saludActual <= 0)
+        // {
+        //     Debug.Log($"PLAYER: Sin vida, debería MORIR");
+        // }
+        // else
+        // {
             saludActual -= cantidadDano;
             Debug.Log($"PLAYER: Vida restante de {saludActual} puntos");
-        }
+
+            AplicarKnockback(posicionAtacante, fuerzaEmpuje);
+        // }
+    }
+
+    private void AplicarKnockback(Vector2 posicionAtacante, float fuerzaEmpuje)
+    {
+        // Si no hay empuje no hace falta Knockback
+        if (fuerzaEmpuje <= 0) return;
+
+        knockbackTimer = tiempoKnockback;
+
+        float direccionAtaqueX = transform.position.x > posicionAtacante.x ? 1 : -1;
+
+        Vector2 direccionEmpuje = new Vector2(direccionAtaqueX, 0.5f).normalized;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = direccionEmpuje * fuerzaEmpuje;
     }
 
     private void OnDrawGizmosSelected()
