@@ -207,8 +207,15 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void RecibirDano(float cantidadDano)
     {
-        saludActual -= cantidadDano;
-        Debug.Log($"PLAYER: Vida restante de {saludActual} puntos");
+        if (saludActual <= 0)
+        {
+            Debug.Log($"PLAYER: Sin vida, debería MORIR");
+        }
+        else
+        {
+            saludActual -= cantidadDano;
+            Debug.Log($"PLAYER: Vida restante de {saludActual} puntos");
+        }
     }
 
     private void OnDrawGizmosSelected()
