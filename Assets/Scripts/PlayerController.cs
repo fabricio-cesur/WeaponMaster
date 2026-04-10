@@ -134,7 +134,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     /// </summary>
     void Atacar(string direccion, Transform punto)
     {
-        Debug.Log($"PLAYER: Atacando en dirección {direccion}");
         if (punto == null || prefabAtaque == null) return; 
 
         cooldownAtaqueTimer = tiempoEntreAtaques;

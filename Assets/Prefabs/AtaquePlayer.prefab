@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6837029704306301893}
   - component: {fileID: 6386862336645447981}
   - component: {fileID: 841183122991480724}
+  - component: {fileID: 9057855440327655618}
   m_Layer: 0
   m_Name: AtaquePlayer
   m_TagString: AtaquePlayer
@@ -134,3 +135,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &9057855440327655618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846287602317631115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35beebf6fb56ec140af7b0f6df6c3688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danoAtaquePlayer: 30
