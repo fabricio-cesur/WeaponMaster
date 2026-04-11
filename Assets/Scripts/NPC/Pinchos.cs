@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Pinchos : MonoBehaviour
+public class Pinchos : MonoBehaviour, IDamageable
 {
     [SerializeField] private float danoPincho = 10;
 
@@ -15,5 +15,9 @@ public class Pinchos : MonoBehaviour
             Debug.Log($"PINCHOS: Daño a {otro.gameObject.name} de {danoPincho} puntos.");
             damageable.RecibirDano(danoPincho, transform.position, 15f);
         }
+    }
+
+    public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 10f)
+    {
     }
 }

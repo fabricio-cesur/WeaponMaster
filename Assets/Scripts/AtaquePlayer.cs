@@ -4,10 +4,12 @@ public class AtaquePlayer : MonoBehaviour
 {
     [SerializeField] private float danoAtaquePlayer = 30;
     private Transform transformJugador;
+    private PlayerController scriptPlayerController;
 
     void Start()
     {
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+        scriptPlayerController = FindFirstObjectByType<PlayerController>();
 
         if (jugador != null)
         {
@@ -25,6 +27,11 @@ public class AtaquePlayer : MonoBehaviour
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"PLAYER: Daño a {otro.gameObject.name} ({tag}) de {danoAtaquePlayer} puntos.");
             damageable.RecibirDano(danoAtaquePlayer, transformJugador.position, 10f);
+
+            if (scriptPlayerController != null)
+            {
+                scriptPlayerController.AplicarRecoilAtaque();
+            }
         }
     }
 }

@@ -57,6 +57,13 @@ public class PlayerController : MonoBehaviour, IDamageable
     public float tiempoKnockback = 0.2f;
     private float knockbackTimer;
 
+    [Header("Recoil")]
+    public float fuerzaRecoilArriba = 15f;
+    public float fuerzaRecoilLateral = 10f;
+    private string ultimaDireccionAtaque;
+    public float tiempoRecoilLateral = 0.1f;
+    private float recoilTimer;
+
     private GameSceneManager gsm;
 
     void Start()
@@ -69,15 +76,22 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
+        // --- 1. ZONA DE TEMPORIZADORES ---
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
         if (cooldownAtaqueTimer > 0) cooldownAtaqueTimer -= Time.deltaTime;
         if (timerInvencibilidad > 0) timerInvencibilidad -= Time.deltaTime;
+        
+        // NUEVO: El timer del recoil baja junto con los demás
+        if (recoilTimer > 0) recoilTimer -= Time.deltaTime; 
+
+        // El Knockback (daño) sigue siendo un "aturdimiento" total, así que se queda con su return
         if (knockbackTimer > 0)
         {
             knockbackTimer -= Time.deltaTime;
             return;
         }
 
+        // --- 2. HABILIDADES (Dash y Ataque) ---
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !estaHaciendoDash) EjecutarDash();
 
         if (estaHaciendoDash)
@@ -92,16 +106,17 @@ public class PlayerController : MonoBehaviour, IDamageable
             else if (Input.GetKeyDown(KeyCode.DownArrow)) Atacar("Abajo", puntoAbajo);
             else if (Input.GetKeyDown(KeyCode.RightArrow)) 
             {
-                transform.localScale = new Vector3(1, 1, 1); // Obligamos a mirar a la derecha
+                transform.localScale = new Vector3(1, 1, 1); 
                 Atacar("Derecha", puntoDerecha); 
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow)) 
             {
-                transform.localScale = new Vector3(-1, 1, 1); // Obligamos a mirar a la izquierda
-                Atacar("Izquierda", puntoDerecha); // Usamos puntoDerecha porque al girar, es el que queda al frente
+                transform.localScale = new Vector3(-1, 1, 1); 
+                Atacar("Izquierda", puntoDerecha); 
             }
         }
 
+        // --- 3. FÍSICAS Y SENSORES ---
         estaEnSuelo = Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
         tocandoPared = Physics2D.OverlapCircle(detectorPared.position, radioDeteccion, capaPared);
 
@@ -111,7 +126,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) bufferTimer = tiempoBufferMax;
         else bufferTimer -= Time.deltaTime;
 
-        if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared)
+        // --- 4. MOVIMIENTO HORIZONTAL ---
+        // NUEVO: Añadimos "&& recoilTimer <= 0" para que no camines mientras rebotas hacia atrás
+        if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared && recoilTimer <= 0)
         {
             float entradaX = 0;
             if (Input.GetKey(KeyCode.A)) entradaX = -1;
@@ -122,6 +139,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             GirarSprite();
         }
 
+        // --- 5. SALTOS Y MENÚ ---
         if (bufferTimer > 0f)
         {
             if (coyoteTimer > 0f) Saltar();
@@ -129,7 +147,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) gsm.IrMenu();
-    } 
+    }
 
     void Saltar()
     {
@@ -143,6 +161,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     /// </summary>
     void Atacar(string direccion, Transform punto)
     {
+        ultimaDireccionAtaque = direccion;
+
         if (punto == null || prefabAtaque == null) return; 
 
         cooldownAtaqueTimer = tiempoEntreAtaques;
@@ -241,6 +261,32 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         rb.linearVelocity = Vector2.zero;
         rb.linearVelocity = direccionEmpuje * fuerzaEmpuje;
+    }
+
+    public void AplicarRecoilAtaque()
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        switch (ultimaDireccionAtaque)
+        {
+            case "Abajo":
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaRecoilArriba);
+                break;
+
+            case "Derecha":
+                rb.linearVelocity = new Vector2(-fuerzaRecoilLateral, rb.linearVelocity.y);
+                recoilTimer = tiempoRecoilLateral;
+                break;
+
+            case "Izquierda":
+                rb.linearVelocity = new Vector2(fuerzaRecoilLateral, rb.linearVelocity.y);
+                recoilTimer = tiempoRecoilLateral;
+                break;
+
+            case "Arriba":
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -fuerzaRecoilArriba);
+                break;
+        }
     }
 
     private void OnDrawGizmosSelected()
