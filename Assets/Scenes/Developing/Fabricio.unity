@@ -2205,6 +2205,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: vidaMaxima
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 9022657253662521468, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
       propertyPath: m_Name
       value: Enemigo

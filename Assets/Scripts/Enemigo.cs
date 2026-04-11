@@ -24,6 +24,10 @@ public class EnemigoIA : MonoBehaviour, IDamageable
     private Transform transformJugador;
     private bool estaPersiguiendo = false;
 
+    [Header("Knockback")]
+    public float tiempoKnockback = 0.1f;
+    private float knockbackTimer;
+
     private Rigidbody2D rb;
 
     void Start()
@@ -45,6 +49,14 @@ public class EnemigoIA : MonoBehaviour, IDamageable
     void FixedUpdate() 
     {
         if (rb == null) return;
+
+        if (knockbackTimer > 0)
+        {
+            knockbackTimer -= Time.fixedDeltaTime; 
+
+            return; 
+        }
+
         if (transformJugador == null) BuscarJugador();
 
         if (transformJugador != null)
@@ -90,14 +102,29 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         else Destroy(gameObject);
     }
 
-    public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 1f)
+    public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 10f)
     {
         vidaActual -= cantidadDano;
+        AplicarKnockback(posicionAtacante, fuerzaEmpuje);
         Debug.Log($"ENEMIGO: Vida restante de {vidaActual} puntos");
         if (vidaActual <= 0)
         {
             Morir();
         }
+    }
+
+    private void AplicarKnockback(Vector2 posicionAtacante, float fuerzaEmpuje)
+    {
+        // Si no hay empuje no hace falta aplicar el Knockback
+        if (fuerzaEmpuje <= 0) return;
+
+        knockbackTimer = tiempoKnockback;
+
+        float direccionAtaqueX = transform.position.x > posicionAtacante.x ? 1 : -1;
+        Vector2 direccionEmpuje = new Vector2(direccionAtaqueX, 0.5f).normalized;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = direccionEmpuje * fuerzaEmpuje;
     }
 
     //Hacer daño a player
