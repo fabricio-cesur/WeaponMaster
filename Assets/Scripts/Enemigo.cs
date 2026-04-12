@@ -25,6 +25,7 @@ public class EnemigoIA : MonoBehaviour, IDamageable
     private bool estaPersiguiendo = false;
 
     [Header("Knockback")]
+    public float fuerzaEmpujeAtaque = 20f;
     public float tiempoKnockback = 0.1f;
     private float knockbackTimer;
 
@@ -137,7 +138,7 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         {
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"ENEMIGO: Daño a {otro.gameObject.name} de {danoEnemigo} puntos.");
-            damageable.RecibirDano(danoEnemigo, transform.position, 20f);
+            damageable.RecibirDano(danoEnemigo, transform.position, fuerzaEmpujeAtaque);
         }
     }
 

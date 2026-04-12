@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private float gravedadOriginal;
 
     [Header("Knockback")]
+    public float fuerzaEmpujeAtaque = 10f;
     public float tiempoKnockback = 0.2f;
     private float knockbackTimer;
 
@@ -169,8 +170,12 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         // CAMBIO AQUÍ: Usamos 'punto.rotation' en lugar de 'Quaternion.identity'
         GameObject ataqueTemporal = Instantiate(prefabAtaque, punto.position, punto.rotation, punto);
-        
         ataqueTemporal.transform.localScale = new Vector3(tamañoAtaque, tamañoAtaque, 1);
+
+        if (ataqueTemporal.TryGetComponent(out AtaquePlayer scriptAtaque))
+        {
+            scriptAtaque.ActualizarAtaque(dañoAtaque, fuerzaEmpujeAtaque);
+        }
 
         Destroy(ataqueTemporal, tiempoVidaAtaque);
 
