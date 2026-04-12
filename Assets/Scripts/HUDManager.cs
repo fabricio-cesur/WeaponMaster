@@ -18,7 +18,7 @@ public class HUDManager : MonoBehaviour
 
         
         if (textoMonedas != null) 
-            textoMonedas.text = "Monedas: " + inventario.monedas.ToString();
+            textoMonedas.text = inventario.monedas.ToString();
 
         if (textoLlaves != null) 
             textoLlaves.text = "Llaves: " + inventario.llaves.ToString();
