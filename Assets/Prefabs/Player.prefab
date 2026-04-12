@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7727207037045713444}
   - component: {fileID: 4174963815271541961}
   - component: {fileID: 6378110357630933933}
+  - component: {fileID: 324473992821556494}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -247,6 +248,10 @@ MonoBehaviour:
   fuerzaDash: 35
   tiempoDashMax: 0.2
   cooldownDashMax: 0.5
+  tiempoKnockback: 0.2
+  fuerzaRecoilArriba: 15
+  fuerzaRecoilLateral: 10
+  tiempoRecoilLateral: 0.1
 --- !u!95 &6378110357630933933
 Animator:
   serializedVersion: 7
@@ -269,6 +274,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &324473992821556494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654595516819464548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d0cad7d3bf2d438f8a4a695c53d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monedas: 0
+  llaves: 0
+  piezasPuzle: 0
 --- !u!1 &3734961600614537663
 GameObject:
   m_ObjectHideFlags: 0
