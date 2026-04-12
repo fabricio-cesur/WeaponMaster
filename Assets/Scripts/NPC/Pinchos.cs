@@ -3,6 +3,7 @@ using UnityEngine;
 public class Pinchos : MonoBehaviour, IDamageable
 {
     [SerializeField] private float danoPincho = 10;
+    public float fuerzaEmpuje = 15f;
 
     private void OnCollisionEnter2D(Collision2D otro)
     {
@@ -13,7 +14,7 @@ public class Pinchos : MonoBehaviour, IDamageable
         {
             IDamageable damageable = otroObjeto.GetComponent<IDamageable>();
             Debug.Log($"PINCHOS: Daño a {otro.gameObject.name} de {danoPincho} puntos.");
-            damageable.RecibirDano(danoPincho, transform.position, 15f);
+            damageable.RecibirDano(danoPincho, transform.position, fuerzaEmpuje);
         }
     }
 
