@@ -66,12 +66,25 @@ public class PlayerController : MonoBehaviour, IDamageable
     private float recoilTimer;
 
     private GameSceneManager gsm;
+    private GameManager gm;
 
     void Start()
     {
+        gm = GameManager.gm;
+
         rb = GetComponent<Rigidbody2D>();
         gravedadOriginal = rb.gravityScale;
-        saludActual = saludMaxima;
+
+        if (gm != null && gm.tieneDatos)
+        {
+            transform.position = gm.posicionJugador;
+            saludActual = gm.saludJugador;
+        }
+        else
+        {
+            saludActual = saludMaxima;
+        }
+
         if (gsm == null) gsm = FindFirstObjectByType<GameSceneManager>();
     }
 
@@ -147,7 +160,16 @@ public class PlayerController : MonoBehaviour, IDamageable
             else if (tocandoPared) EjecutarWallJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) gsm.IrMenu();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gm != null)
+            {
+                gm.posicionJugador = transform.position;
+                gm.saludJugador = saludActual;
+                gm.tieneDatos = true;
+            }
+            gsm.IrMenu();
+        }
     }
 
     void Saltar()
