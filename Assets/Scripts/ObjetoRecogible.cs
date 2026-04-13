@@ -50,5 +50,34 @@ public class ObjetoRecogible : MonoBehaviour
             UnityEditor.EditorUtility.SetDirty(this); 
         }
     }
+    [ContextMenu("Forzar Nuevo ID")]
+    public void ForzarNuevoID()
+    {
+        // Registramos el cambio para que funcione el Ctrl+Z por si te equivocas
+        UnityEditor.Undo.RecordObject(this, "Generar ID Único"); 
+        
+        idObjeto = ("recogible-" + System.Guid.NewGuid()).ToString();
+        
+        // Le avisamos a la escena de que hay cambios sin guardar
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    // 2. La magia para hacer 50 objetos a la vez
+    // Esto crea un botón al hacer clic derecho sobre los objetos en la ventana de Jerarquía
+    [UnityEditor.MenuItem("GameObject/Generar Nuevos IDs para Recogibles", false, 0)]
+    private static void GenerarIDsMultiples()
+    {
+        // Recorremos todos los objetos que tengas seleccionados con el ratón
+        foreach (GameObject obj in UnityEditor.Selection.gameObjects)
+        {
+            // OJO: Cambia 'Enemigo' por el nombre exacto de tu script (ej. Moneda, Cofre...)
+            ObjetoRecogible script = obj.GetComponent<ObjetoRecogible>(); 
+            
+            if (script != null)
+            {
+                script.ForzarNuevoID();
+            }
+        }
+    }
 #endif
 }
