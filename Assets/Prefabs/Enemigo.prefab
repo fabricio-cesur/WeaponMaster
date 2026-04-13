@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -1649050804581189452, guid: c8f67c2c0de391042b70cff6a09bf54b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -106,7 +106,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 10
   m_AngularDamping: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 30
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -167,13 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89234f32c03a21b48b019d0c8f0207c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idObjeto: 
   vidaMaxima: 80
   vidaActual: 0
   danoEnemigo: 10
-  velocidadPatrulla: 2
-  rangoPatrulla: 7
-  velocidadPersecucion: 4
-  distanciaDeteccion: 7
+  velocidadPatrulla: 3
+  rangoPatrulla: 5
+  velocidadPersecucion: 5
+  distanciaDeteccion: 8
   distanciaAbandono: 8
   fuerzaEmpujeAtaque: 20
   tiempoKnockback: 0.1
