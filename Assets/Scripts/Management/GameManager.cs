@@ -38,4 +38,20 @@ public class GameManager : MonoBehaviour
             objetosDestruidos.Add(idObjeto);
         }
     }
+
+    public void ReiniciarDatosGuardados()
+    {
+        tieneDatos = false;
+        posicionJugador = Vector3.zero;
+        saludJugador = 5f;
+
+        monedas = 0;
+        llaves = 0;
+        piezasPuzle = 0;
+
+        if (objetosDestruidos != null)
+        {
+            objetosDestruidos.Clear();
+        }
+    }
 }

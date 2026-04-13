@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable
@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public float saludActual;
     public float tiempoInvencibilidad = 1f;
     private float timerInvencibilidad;
+    private bool estaMuerto = false;
 
     [Header("Movimiento")]
     public float velocidad = 8f;
@@ -70,6 +71,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Start()
     {
+        estaMuerto = false;
+
         gm = GameManager.gm;
 
         rb = GetComponent<Rigidbody2D>();
@@ -90,6 +93,22 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if (estaMuerto)
+        {
+            // Dejamos que el tiempo de knockback siga corriendo mientras vuela hacia atrás
+            if (knockbackTimer > 0)
+            {
+                knockbackTimer -= Time.deltaTime;
+            }
+            else
+            {
+                // Cuando se acaba el empujón, frenamos su deslizamiento horizontal,
+                // pero mantenemos la velocidad Y por si muere en el aire y tiene que caer.
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            }
+            return; // Salimos del Update para que no camine ni ataque
+        }
+
         // --- 1. ZONA DE TEMPORIZADORES ---
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
         if (cooldownAtaqueTimer > 0) cooldownAtaqueTimer -= Time.deltaTime;
@@ -262,17 +281,16 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 10f)
     {
-        // if (saludActual <= 0)
-        // {
-        //     Debug.Log($"PLAYER: Sin vida, debería MORIR");
-        // }
-        // else
-        // {
-            saludActual -= cantidadDano;
+        saludActual -= cantidadDano;
+        AplicarKnockback(posicionAtacante, fuerzaEmpuje);
+        if (saludActual <= 0)
+        {
+            Morir();
+        }
+        else
+        {
             Debug.Log($"PLAYER: Vida restante de {saludActual} puntos");
-
-            AplicarKnockback(posicionAtacante, fuerzaEmpuje);
-        // }
+        }
     }
 
     private void AplicarKnockback(Vector2 posicionAtacante, float fuerzaEmpuje)
@@ -288,6 +306,25 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         rb.linearVelocity = Vector2.zero;
         rb.linearVelocity = direccionEmpuje * fuerzaEmpuje;
+    }
+
+    private void Morir()
+    {
+        estaMuerto = true;
+
+        if (gm != null)
+        {
+            gm.ReiniciarDatosGuardados();
+            gm.saludJugador = saludMaxima;
+        }
+
+        Invoke(nameof(ReiniciarEscena), 1f);
+    }
+
+    private void ReiniciarEscena()
+    {
+        int escenaActual = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(escenaActual);
     }
 
     public void AplicarRecoilAtaque()
