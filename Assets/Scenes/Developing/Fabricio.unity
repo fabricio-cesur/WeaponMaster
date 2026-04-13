@@ -1079,6 +1079,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3201126606520394961, guid: 3b3ed76583de0854e9ae43c52fccb3b6, type: 3}
   m_PrefabInstance: {fileID: 2527048294053999527}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &798668884
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 36.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: idObjeto
+      value: enemigo_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: vidaMaxima
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: danoEnemigo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022657253662521468, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: m_Name
+      value: Enemigo (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
 --- !u!1 &933691780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,6 +2213,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4174963815271541961, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+      propertyPath: "da\xF1oAtaque"
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4174963815271541961, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+      propertyPath: saludMaxima
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2216,11 +2293,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.6
+      value: -22.38
       objectReference: {fileID: 0}
     - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.1
+      value: -1.76
       objectReference: {fileID: 0}
     - target: {fileID: 4015153556877524865, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2255,8 +2332,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: idObjeto
+      value: enemigo_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
       propertyPath: vidaMaxima
-      value: 150
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289630504977797266, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
+      propertyPath: danoEnemigo
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9022657253662521468, guid: 718da92fb1408ee47ab387b553c4d4f3, type: 3}
       propertyPath: m_Name
@@ -2282,4 +2367,5 @@ SceneRoots:
   - {fileID: 1944795839}
   - {fileID: 933691781}
   - {fileID: 8740684654517862168}
+  - {fileID: 798668884}
   - {fileID: 2748207923225322785}
