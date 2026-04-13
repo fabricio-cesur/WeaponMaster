@@ -69,8 +69,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private GameSceneManager gsm;
     private GameManager gm;
 
+    private Animator animator;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         estaMuerto = false;
 
         gm = GameManager.gm;
@@ -311,7 +314,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Morir()
     {
         estaMuerto = true;
-
+        animator.SetBool("estaMuerto", true);
+        
         if (gm != null)
         {
             gm.ReiniciarDatosGuardados();
