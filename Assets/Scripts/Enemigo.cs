@@ -8,11 +8,11 @@ public class EnemigoIA : MonoBehaviour, IDamageable
     public string idObjeto;
 
     [Header("Salud")]
-    public float vidaMaxima = 30f;
+    public float vidaMaxima = 100f;
     public float vidaActual;
 
     [Header("Ataque")]
-    public float danoEnemigo = 10f;
+    public float danoEnemigo = 1f;
 
     [Header("Patrulla")]
     public float velocidadPatrulla = 3f;

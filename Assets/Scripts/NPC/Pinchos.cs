@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Pinchos : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float danoPincho = 10;
+    [SerializeField] private float danoPincho = 1;
     public float fuerzaEmpuje = 15f;
 
     private void OnCollisionEnter2D(Collision2D otro)

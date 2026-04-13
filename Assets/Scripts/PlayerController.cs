@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("Salud")]
-    public float saludMaxima = 100f;
+    public float saludMaxima = 5f;
     public float saludActual;
     public float tiempoInvencibilidad = 1f;
     private float timerInvencibilidad;
