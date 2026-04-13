@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public float saludJugador;
     public bool tieneDatos = false;
 
+    [Header("Inventario jugador")]
+    public int monedas = 0;
+    public int llaves = 0;
+    public int piezasPuzle = 0;
+
     [Header("Mundo")]
     public List<string> objetosDestruidos = new List<string>();
 

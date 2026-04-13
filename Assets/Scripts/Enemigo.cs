@@ -83,6 +83,24 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         else Patrullar();
     }
 
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this))
+        {
+            idObjeto = "";
+            return;
+        }
+
+        if (string.IsNullOrEmpty(idObjeto))
+        {
+            idObjeto = ("enemigo-" + System.Guid.NewGuid()).ToString();
+            
+            UnityEditor.EditorUtility.SetDirty(this); 
+        }
+    }
+#endif
+
     void Patrullar()
     {
         if (transform.position.x >= xMaxima) direccionActual = -1;

@@ -3,9 +3,31 @@ using UnityEngine;
 public class InventarioPlayer : MonoBehaviour
 {
     [Header("Contadores de Objetos")]
-    public int monedas;
-    public int llaves;
-    public int piezasPuzle;
+    public int monedas 
+    { 
+        get { return GameManager.gm != null ? GameManager.gm.monedas : 0; } 
+        set { if (GameManager.gm != null) GameManager.gm.monedas = value; } 
+    }
+
+    public int llaves 
+    { 
+        get { return GameManager.gm != null ? GameManager.gm.llaves : 0; } 
+        set { if (GameManager.gm != null) GameManager.gm.llaves = value; } 
+    }
+
+    public int piezasPuzle 
+    { 
+        get { return GameManager.gm != null ? GameManager.gm.piezasPuzle : 0; } 
+        set { if (GameManager.gm != null) GameManager.gm.piezasPuzle = value; } 
+    }
+
+    [Header("Persistencia")]
+    private GameManager gm;
+
+    void Start()
+    {
+        gm = GameManager.gm;
+    }
 
     public void AñadirObjeto(string tipo, int cantidad)
     {
@@ -38,5 +60,9 @@ public class InventarioPlayer : MonoBehaviour
             "pieza" => piezasPuzle,
             _ => 0
         };
+    }
+
+    public void GuardarInventario()
+    {
     }
 }
