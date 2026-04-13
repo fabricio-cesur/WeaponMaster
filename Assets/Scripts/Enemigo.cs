@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class EnemigoIA : MonoBehaviour, IDamageable
 {
+
+    [Header("Persistencia")]
+    private GameManager gm;
+    public string idObjeto;
+
     [Header("Salud")]
     public float vidaMaxima = 30f;
     public float vidaActual;
@@ -34,6 +39,13 @@ public class EnemigoIA : MonoBehaviour, IDamageable
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gm = GameManager.gm;
+
+        if (gm != null && gm.objetosDestruidos.Contains(idObjeto))
+        {
+            Destroy(gameObject);
+            return;
+        }
         escalaOriginal = transform.localScale;
         xMinima = transform.position.x - rangoPatrulla;
         xMaxima = transform.position.x + rangoPatrulla;
@@ -99,6 +111,10 @@ public class EnemigoIA : MonoBehaviour, IDamageable
 
     void Morir()
     {
+        if (gm != null)
+        {
+            gm.RegistrarObjetoDestruido(idObjeto);
+        }
         if (transform.parent != null) Destroy(transform.parent.gameObject);
         else Destroy(gameObject);
     }
