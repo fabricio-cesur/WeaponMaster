@@ -1,7 +1,5 @@
 using UnityEngine;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
-
 
 public class HUDManager : MonoBehaviour
 {
@@ -22,6 +20,7 @@ public class HUDManager : MonoBehaviour
     void Start()
     {
         jugador = FindFirstObjectByType<PlayerController>();
+        inventario = FindFirstObjectByType<InventarioPlayer>();
     }
 
     void Update()

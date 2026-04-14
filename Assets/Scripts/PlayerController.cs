@@ -189,6 +189,8 @@ public class PlayerController : MonoBehaviour, IDamageable
                 gm.posicionJugador = transform.position;
                 gm.saludJugador = saludActual;
                 gm.tieneDatos = true;
+
+                gm.GuardarPartidaEnDisco();
             }
             gsm.IrMenu();
         }
