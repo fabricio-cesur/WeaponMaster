@@ -98,36 +98,29 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (estaMuerto)
         {
-            // Dejamos que el tiempo de knockback siga corriendo mientras vuela hacia atrás
             if (knockbackTimer > 0)
             {
                 knockbackTimer -= Time.deltaTime;
             }
             else
             {
-                // Cuando se acaba el empujón, frenamos su deslizamiento horizontal,
-                // pero mantenemos la velocidad Y por si muere en el aire y tiene que caer.
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             }
-            return; // Salimos del Update para que no camine ni ataque
+            return; 
         }
 
-        // --- 1. ZONA DE TEMPORIZADORES ---
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
         if (cooldownAtaqueTimer > 0) cooldownAtaqueTimer -= Time.deltaTime;
         if (timerInvencibilidad > 0) timerInvencibilidad -= Time.deltaTime;
         
-        // NUEVO: El timer del recoil baja junto con los demás
         if (recoilTimer > 0) recoilTimer -= Time.deltaTime; 
 
-        // El Knockback (daño) sigue siendo un "aturdimiento" total, así que se queda con su return
         if (knockbackTimer > 0)
         {
             knockbackTimer -= Time.deltaTime;
             return;
         }
 
-        // --- 2. HABILIDADES (Dash y Ataque) ---
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !estaHaciendoDash) EjecutarDash();
 
         if (estaHaciendoDash)
@@ -140,19 +133,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             if (Input.GetKeyDown(KeyCode.UpArrow)) Atacar("Arriba", puntoArriba);
             else if (Input.GetKeyDown(KeyCode.DownArrow)) Atacar("Abajo", puntoAbajo);
-            else if (Input.GetKeyDown(KeyCode.RightArrow)) 
-            {
-                transform.localScale = new Vector3(1, 1, 1); 
-                Atacar("Derecha", puntoDerecha); 
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow)) 
-            {
-                transform.localScale = new Vector3(-1, 1, 1); 
-                Atacar("Izquierda", puntoDerecha); 
-            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) Atacar("Derecha", puntoDerecha); 
+            // SOLUCIÓN: Usamos puntoDerecha aquí porque cuando la escala cambia a -1, este rota físicamente a la izquierda de forma automática.
+            else if (Input.GetKeyDown(KeyCode.LeftArrow)) Atacar("Izquierda", puntoDerecha); 
         }
 
-        // --- 3. FÍSICAS Y SENSORES ---
         estaEnSuelo = Physics2D.OverlapCircle(detectorSuelo.position, radioDeteccion, capaSuelo);
         tocandoPared = Physics2D.OverlapCircle(detectorPared.position, radioDeteccion, capaPared);
 
@@ -162,9 +147,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) bufferTimer = tiempoBufferMax;
         else bufferTimer -= Time.deltaTime;
 
-        // --- 4. MOVIMIENTO HORIZONTAL ---
-        // NUEVO: Añadimos "&& recoilTimer <= 0" para que no camines mientras rebotas hacia atrás
-        if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared && recoilTimer <= 0)
+        // --- MOVIMIENTO HORIZONTAL ---
+        if (Time.time > tiempoUltimoSaltoPared + tiempoControlPared && recoilTimer <= 0 && !EstaAtacando())
         {
             float entradaX = 0;
             if (Input.GetKey(KeyCode.A)) entradaX = -1;
@@ -174,8 +158,11 @@ public class PlayerController : MonoBehaviour, IDamageable
             rb.linearVelocity = new Vector2(movimientoX * velocidad, rb.linearVelocity.y);
             GirarSprite();
         }
+        else if (EstaAtacando() && recoilTimer <= 0 && estaEnSuelo)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
 
-        // --- 5. SALTOS Y MENÚ ---
         if (bufferTimer > 0f)
         {
             if (coyoteTimer > 0f) Saltar();
@@ -203,18 +190,44 @@ public class PlayerController : MonoBehaviour, IDamageable
         bufferTimer = 0f; 
     }
 
-    /// <summary>
-    /// Instancia el prefab de ataque en la posicion y rotacion del punto indicado.
-    /// </summary>
+    bool EstaAtacando()
+    {
+        return cooldownAtaqueTimer > (tiempoEntreAtaques - tiempoVidaAtaque);
+    }
+
     void Atacar(string direccion, Transform punto)
     {
         ultimaDireccionAtaque = direccion;
-
         if (punto == null || prefabAtaque == null) return; 
 
         cooldownAtaqueTimer = tiempoEntreAtaques;
 
-        // CAMBIO AQUÍ: Usamos 'punto.rotation' en lugar de 'Quaternion.identity'
+        // Forzamos la escala de orientación al instante según la dirección del ataque
+        if (direccion == "Derecha")
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (direccion == "Izquierda")
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        if (animator != null)
+        {
+            if (direccion == "Derecha" || direccion == "Izquierda")
+            {
+                animator.SetTrigger("AtacarLateral");
+            }
+            else if (direccion == "Arriba")
+            {
+                animator.SetTrigger("AtacarArriba");
+            }
+            else if (direccion == "Abajo")
+            {
+                animator.SetTrigger("AtacarAbajo");
+            }
+        }
+
         GameObject ataqueTemporal = Instantiate(prefabAtaque, punto.position, punto.rotation, punto);
         ataqueTemporal.transform.localScale = new Vector3(tamañoAtaque, tamañoAtaque, 1);
 
@@ -225,7 +238,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         Destroy(ataqueTemporal, tiempoVidaAtaque);
 
-        // Detección física (se mantiene para lógica interna)
         Physics2D.OverlapBoxAll(punto.position, new Vector2(tamañoAtaque, tamañoAtaque), 0, capaEnemigos);
     }
     
@@ -266,11 +278,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void GirarSprite()
     {
-        // Calculamos si el ataque físico (el prefab) sigue existiendo
-        bool ataqueActivo = cooldownAtaqueTimer > (tiempoEntreAtaques - tiempoVidaAtaque);
-        
-        // Si estamos atacando, impedimos que el movimiento gire al personaje
-        if (ataqueActivo) return;
+        // CAMBIO CLAVE: Bloqueamos el re-giro por movimiento mientras dure todo el cooldown del ataque (0.3s)
+        if (cooldownAtaqueTimer > 0) return;
 
         if (movimientoX > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (movimientoX < 0) transform.localScale = new Vector3(-1, 1, 1);
@@ -300,7 +309,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void AplicarKnockback(Vector2 posicionAtacante, float fuerzaEmpuje)
     {
-        // Si no hay empuje no hace falta Knockback
         if (fuerzaEmpuje <= 0) return;
 
         knockbackTimer = tiempoKnockback;
@@ -345,12 +353,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             case "Derecha":
                 rb.linearVelocity = new Vector2(-fuerzaRecoilLateral, rb.linearVelocity.y);
-                recoilTimer = tiempoRecoilLateral;
                 break;
 
             case "Izquierda":
                 rb.linearVelocity = new Vector2(fuerzaRecoilLateral, rb.linearVelocity.y);
-                recoilTimer = tiempoRecoilLateral;
                 break;
 
             case "Arriba":
