@@ -8604,6 +8604,7 @@ MonoBehaviour:
   llaves: 0
   piezasPuzle: 0
   objetosDestruidos: []
+  perfilActivo: Jugador
 --- !u!4 &1874189432
 Transform:
   m_ObjectHideFlags: 0

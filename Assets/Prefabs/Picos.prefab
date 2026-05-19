@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc35b90a656939b4a817efcf67cba0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  danoPincho: 10
+  danoPincho: 1
   fuerzaEmpuje: 15
 --- !u!1 &2794087033562276917
 GameObject:
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc35b90a656939b4a817efcf67cba0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  danoPincho: 10
+  danoPincho: 1
   fuerzaEmpuje: 15
 --- !u!1 &5532159610299381956
 GameObject:
@@ -494,5 +494,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc35b90a656939b4a817efcf67cba0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  danoPincho: 10
+  danoPincho: 1
   fuerzaEmpuje: 15
