@@ -2628,11 +2628,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251229537388852595, guid: 8d4d3268449f66e47a0fabdcb0a00dc6, type: 3}
       propertyPath: danoPincho
-      value: 5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251229537388852595, guid: 8d4d3268449f66e47a0fabdcb0a00dc6, type: 3}
+      propertyPath: fuerzaEmpuje
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3122791734324606728, guid: 8d4d3268449f66e47a0fabdcb0a00dc6, type: 3}
       propertyPath: danoPincho
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5532159610299381956, guid: 8d4d3268449f66e47a0fabdcb0a00dc6, type: 3}
       propertyPath: m_Name
