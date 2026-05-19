@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     // Funcionamiento para guardado permanente en disco:
     public void GuardarPartidaEnDisco()
     {
@@ -68,12 +67,13 @@ public class GameManager : MonoBehaviour
         datos.monedas = monedas;
         datos.llaves = llaves;
         datos.piezas = piezasPuzle;
-        // Hacemos una copia exacta de la lista actual
         datos.objetosDestruidos = new System.Collections.Generic.List<string>(objetosDestruidos);
 
-        // Convertimos los datos a texto JSON y los guardamos en el PC
         string json = JsonUtility.ToJson(datos);
-        string ruta = Application.persistentDataPath + "/partida.json";
+        
+        // ¡AQUÍ ESTABA EL ERROR! Ahora usamos la ruta del perfil actual
+        string ruta = ObtenerRutaGuardadoActual();
+        
         File.WriteAllText(ruta, json);
         
         Debug.Log("Partida guardada con éxito en: " + ruta);
@@ -81,13 +81,14 @@ public class GameManager : MonoBehaviour
 
     public bool CargarPartidaDeDisco()
     {
-        string ruta = Application.persistentDataPath + "/partida.json";
+        // ¡AQUÍ TAMBIÉN! Usamos la ruta del perfil
+        string ruta = ObtenerRutaGuardadoActual();
+        
         if (File.Exists(ruta))
         {
             string json = File.ReadAllText(ruta);
             DatosGuardado datos = JsonUtility.FromJson<DatosGuardado>(json);
 
-            // Volcamos los datos del archivo al GameManager
             posicionJugador = new Vector3(datos.posX, datos.posY, datos.posZ);
             saludJugador = datos.salud;
             monedas = datos.monedas;
@@ -100,9 +101,30 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    // Cambiado de "Invitado" a "Jugador"
+    public string perfilActivo = "Jugador"; 
+    
+    public void EstablecerPerfil(string nombrePerfil)
+    {
+        perfilActivo = nombrePerfil;
+    }
+
+    public string ObtenerRutaGuardadoActual()
+    {
+        return Application.persistentDataPath + "/perfil_" + perfilActivo + ".json";
+    }
+
     public bool ExistePartidaGuardada()
     {
-        return File.Exists(Application.persistentDataPath + "/partida.json");
+        string ruta = ObtenerRutaGuardadoActual();
+        
+        if (!System.IO.File.Exists(ruta)) return false;
+        
+        string contenido = System.IO.File.ReadAllText(ruta);
+        
+        if (contenido.Length <= 5) return false; 
+        
+        return true; 
     }
 }
 
