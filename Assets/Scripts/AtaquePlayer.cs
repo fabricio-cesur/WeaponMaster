@@ -45,7 +45,7 @@ public class AtaquePlayer : MonoBehaviour
             }
         }
         // AÑADIDO: Detección de colisión con Pinchos
-        else if (otroObjeto.CompareTag("Pinchos") || otroObjeto.CompareTag("Spikes"))
+        else if (otroObjeto.CompareTag("Pinchos"))
         {
             if (scriptPlayerController != null)
             {
