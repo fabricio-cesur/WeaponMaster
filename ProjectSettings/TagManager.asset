@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - AtaquePlayer
+  - Pinchos
   layers:
   - Default
   - TransparentFX

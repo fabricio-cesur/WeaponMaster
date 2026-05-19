@@ -39,6 +39,18 @@ public class AtaquePlayer : MonoBehaviour
 
             if (scriptPlayerController != null)
             {
+                // AÑADIDO: Sonido al golpear enemigo
+                scriptPlayerController.ReproducirSonidoImpacto("Enemigo");
+                scriptPlayerController.AplicarRecoilAtaque();
+            }
+        }
+        // AÑADIDO: Detección de colisión con Pinchos
+        else if (otroObjeto.CompareTag("Pinchos") || otroObjeto.CompareTag("Spikes"))
+        {
+            if (scriptPlayerController != null)
+            {
+                // AÑADIDO: Sonido al golpear pinchos y aplicar salto pogo
+                scriptPlayerController.ReproducirSonidoImpacto("Pinchos");
                 scriptPlayerController.AplicarRecoilAtaque();
             }
         }

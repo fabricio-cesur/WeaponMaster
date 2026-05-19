@@ -32,6 +32,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     public LayerMask capaEnemigos; 
     public Transform puntoArriba, puntoAbajo, puntoDerecha, puntoIzquierda;
 
+    [Header("Audio SFX Dinámico")]
+    [Tooltip("Sonido que suena siempre que la espada corta el aire")]
+    public AudioClip sonidoAtaqueAire;
+    [Tooltip("Sonido cuando golpeas a un enemigo")]
+    public AudioClip sonidoImpactoEnemigo;
+    [Tooltip("Sonido cuando golpeas pinchos u obstáculos")]
+    public AudioClip sonidoImpactoPinchos;
+    private AudioSource audioSource;
+
     [Header("Sensores")]
     public Transform detectorSuelo;
     public float radioDeteccion = 0.2f;
@@ -74,6 +83,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>(); // INTEGRACIÓN: Buscamos el componente de sonido
         estaMuerto = false;
 
         gm = GameManager.gm;
@@ -211,6 +221,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
+
+        // INTEGRACIÓN: Reproducir el sonido base del tajo al aire libre
+        ReproducirSonido(sonidoAtaqueAire);
 
         if (animator != null)
         {
@@ -364,6 +377,27 @@ public class PlayerController : MonoBehaviour, IDamageable
                 break;
         }
     }
+
+    public void ReproducirSonidoImpacto(string tipoDeImpacto)
+    {
+        if (tipoDeImpacto == "Enemigo")
+        {
+            ReproducirSonido(sonidoImpactoEnemigo);
+        }
+        else if (tipoDeImpacto == "Pinchos")
+        {
+            ReproducirSonido(sonidoImpactoPinchos);
+        }
+    }
+
+    private void ReproducirSonido(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+    
 
     private void OnDrawGizmosSelected()
     {
