@@ -162,8 +162,7 @@ public class EnemigoIA : MonoBehaviour, IDamageable
         {
             gm.RegistrarObjetoDestruido(idObjeto);
         }
-        if (transform.parent != null) Destroy(transform.parent.gameObject);
-        else Destroy(gameObject);
+       Destroy(gameObject);
     }
 
     public void RecibirDano(float cantidadDano, Vector2 posicionAtacante, float fuerzaEmpuje = 10f)
