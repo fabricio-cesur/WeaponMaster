@@ -8882,7 +8882,7 @@ AudioSource:
   m_GameObject: {fileID: 1907244296}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2325245802864069489, guid: 35c7ce13f79756f42b5fe723b3a90b6f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 076b91b4dcb57b345a0910ef0f42715b, type: 3}
   m_Resource: {fileID: 8300000, guid: 076b91b4dcb57b345a0910ef0f42715b, type: 3}
   m_PlayOnAwake: 1
@@ -10605,6 +10605,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2120880555952677205, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -7673042838259266099, guid: 35c7ce13f79756f42b5fe723b3a90b6f, type: 2}
     - target: {fileID: 4174963815271541961, guid: e629a8068d5ee9c45aad5d153ceb1380, type: 3}
       propertyPath: "da\xF1oAtaque"
       value: 15

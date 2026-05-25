@@ -4336,7 +4336,7 @@ AudioSource:
   m_GameObject: {fileID: 1459462645}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2325245802864069489, guid: 35c7ce13f79756f42b5fe723b3a90b6f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 38e047bdd1f1ef446968c2d2a8d4999a, type: 3}
   m_Resource: {fileID: 8300000, guid: 38e047bdd1f1ef446968c2d2a8d4999a, type: 3}
   m_PlayOnAwake: 1
@@ -4433,7 +4433,7 @@ Transform:
   m_GameObject: {fileID: 1459462645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -167.88876, y: 1.0005623, z: -0.074531116}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4903,6 +4903,7 @@ GameObject:
   - component: {fileID: 1534190096}
   - component: {fileID: 1534190097}
   - component: {fileID: 1534190098}
+  - component: {fileID: 1534190099}
   m_Layer: 0
   m_Name: <MenuManager>
   m_TagString: Untagged
@@ -4954,6 +4955,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabPerfilSlot: {fileID: 8113158737257575394, guid: 0bfe0f61958f3534da16b999d3fe9ecd, type: 3}
+--- !u!114 &1534190099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534190094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65fa7ea46a5f2d44f92b14c5a2484ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMixer: {fileID: 0}
+  sliderMusic: {fileID: 0}
+  sliderSFX: {fileID: 0}
 --- !u!1 &1543663510
 GameObject:
   m_ObjectHideFlags: 0
