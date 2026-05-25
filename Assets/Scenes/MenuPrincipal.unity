@@ -2035,7 +2035,7 @@ RectTransform:
   - {fileID: 546327797}
   - {fileID: 1179707331}
   - {fileID: 1086735358}
-  m_Father: {fileID: 1896905010}
+  m_Father: {fileID: 1304906363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3946,7 +3946,7 @@ GameObject:
   - component: {fileID: 1302218534}
   - component: {fileID: 1302218533}
   m_Layer: 5
-  m_Name: BtnCancel
+  m_Name: BtnCerrar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4106,6 +4106,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 354322218}
+  - {fileID: 802485219}
   m_Father: {fileID: 1896905010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4967,7 +4968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fa7ea46a5f2d44f92b14c5a2484ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 0}
+  mainMixer: {fileID: 24100000, guid: 35c7ce13f79756f42b5fe723b3a90b6f, type: 2}
   sliderMusic: {fileID: 0}
   sliderSFX: {fileID: 0}
 --- !u!1 &1543663510
@@ -5532,7 +5533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1896905010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5547,7 +5548,6 @@ RectTransform:
   m_Children:
   - {fileID: 1302218532}
   - {fileID: 1304906363}
-  - {fileID: 802485219}
   m_Father: {fileID: 1739374241}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
