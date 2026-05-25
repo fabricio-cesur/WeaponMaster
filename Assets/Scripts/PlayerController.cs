@@ -212,7 +212,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         cooldownAtaqueTimer = tiempoEntreAtaques;
 
-        // Forzamos la escala de orientación al instante según la dirección del ataque
         if (direccion == "Derecha")
         {
             transform.localScale = new Vector3(1, 1, 1);
@@ -222,7 +221,6 @@ public class PlayerController : MonoBehaviour, IDamageable
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        // INTEGRACIÓN: Reproducir el sonido base del tajo al aire libre
         ReproducirSonido(sonidoAtaqueAire);
 
         if (animator != null)
@@ -242,7 +240,21 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         GameObject ataqueTemporal = Instantiate(prefabAtaque, punto.position, punto.rotation, punto);
-        ataqueTemporal.transform.localScale = new Vector3(tamañoAtaque, tamañoAtaque, 1);
+
+        // --- NUEVA LÓGICA DE ESCALA RECTANGULAR ---
+        float largo = tamañoAtaque; 
+        float grosor = tamañoAtaque * 0.6f; // El grosor será menos de la mitad que el largo. Cambia el 0.4f a tu gusto.
+
+        if (direccion == "Arriba" || direccion == "Abajo")
+        {
+            // Ataque recostado: mucho alcance horizontal (X), poco alcance vertical (Y)
+            ataqueTemporal.transform.localScale = new Vector3(largo, grosor, 1);
+        }
+        else
+        {
+            // Ataque de pie: poco alcance horizontal (X), mucho alcance vertical (Y)
+            ataqueTemporal.transform.localScale = new Vector3(grosor, largo, 1);
+        }
 
         if (ataqueTemporal.TryGetComponent(out AtaquePlayer scriptAtaque))
         {
@@ -250,8 +262,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         Destroy(ataqueTemporal, tiempoVidaAtaque);
-
-        Physics2D.OverlapBoxAll(punto.position, new Vector2(tamañoAtaque, tamañoAtaque), 0, capaEnemigos);
+        
+        // He borrado la línea de Physics2D.OverlapBoxAll porque no estaba guardando 
+        // la información en ninguna variable y solo consumía recursos innecesarios.
     }
     
     void EjecutarDash()
